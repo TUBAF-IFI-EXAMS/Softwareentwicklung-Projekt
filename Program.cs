@@ -19,8 +19,9 @@ namespace wheatherproject
         static async Task Main(string[] args)
         {
             ReadSave(SavePath);
-
-            var Image = new SouImg("22_22-07-2021_50-93_13-34.jpg");
+            Console.WriteLine("Image Name:");
+            var line = Console.ReadLine();
+            var Image = new SouImg(line);
             AnalyzeWeather(Image);
             await new Program().Compare(Image);
             Image.PrintInfo();
