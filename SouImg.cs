@@ -1,0 +1,87 @@
+using System;
+
+namespace wheatherproject
+{
+    public class SouImg
+    {
+        public string ImgPath;
+        public int ImgSize;
+        public DaTi DateandTime;
+        public Coords Coordinate;
+        public int BlueCount;
+        public int WhiteCount;
+        public int GrayCount;
+        public string PredWeather;
+        public string RealWeather;
+        public bool Success;
+        public SouImg(string Path)//, string DateTime, float tlat, float tlon) // 22_22-07-2021_50.93-13.34
+        {
+            ImgPath = "s_img/" + Path;
+            ImgSize = 128;
+            BlueCount = 0;
+            WhiteCount = 0;
+            GrayCount = 0;
+            if (Int32.Parse(Char.ToString(Path[0]) + Char.ToString(Path[1])) != 0)
+            {
+                DateandTime = new DaTi(Int32.Parse(Char.ToString(Path[9]) + Char.ToString(Path[10]) + Char.ToString(Path[11]) + Char.ToString(Path[12])),
+                0 + Int32.Parse(Char.ToString(Path[6]) + Char.ToString(Path[7])), 0 + Int32.Parse(Char.ToString(Path[3]) + Char.ToString(Path[4])),
+                Int32.Parse(Char.ToString(Path[0]) + Char.ToString(Path[1]))-1);
+            }
+            else
+            {
+                DateandTime = new DaTi(Int32.Parse(Char.ToString(Path[9]) + Char.ToString(Path[10]) + Char.ToString(Path[11]) + Char.ToString(Path[12])),
+                0 + Int32.Parse(Char.ToString(Path[6]) + Char.ToString(Path[7])), 0 + Int32.Parse(Char.ToString(Path[3]) + Char.ToString(Path[4])), 23);
+            }
+            Coordinate = new Coords(float.Parse(Char.ToString(Path[14]) + Char.ToString(Path[15]) + "." + Char.ToString(Path[17]) + Char.ToString(Path[18])),
+                                    float.Parse(Char.ToString(Path[20]) + Char.ToString(Path[21]) + "." + Char.ToString(Path[23]) + Char.ToString(Path[24])));
+            
+        }
+
+        public void PrintInfo()
+        {
+            Console.WriteLine("Path: " + ImgPath.ToString());
+            Console.WriteLine("Image size: " + ImgSize.ToString() + "px * " + ImgSize.ToString() + "px");
+            Console.WriteLine("Blue Pixel %: " + (((float)BlueCount/(ImgSize*ImgSize))*100f).ToString() );
+            Console.WriteLine("White Pixel %: " + (((float)WhiteCount/(ImgSize*ImgSize))*100f).ToString() );
+            Console.WriteLine("Gray Pixel %: " + (((float)GrayCount/(ImgSize*ImgSize))*100f).ToString() );
+            Console.WriteLine("Predicted: " + PredWeather.ToString());
+            Console.WriteLine("Actual: " + RealWeather.ToString());
+            Console.WriteLine("Success: " + Success.ToString());
+            DateandTime.PrintInfo();
+            Coordinate.PrintInfo();
+        }
+    }
+    public class DaTi
+    {
+        public int Year;
+        public int Month;
+        public int Day;
+        public int Hour;
+
+        public DaTi(int ye, int mo, int da, int ho)
+        {
+            Year = ye;
+            Month = mo;
+            Day = da;
+            Hour = ho;
+        }
+        public void PrintInfo()
+        {
+            Console.WriteLine("Time and Date: " + (Hour+1).ToString()+ ":00 " + Day.ToString() + "." + Month.ToString() + "." + Year.ToString());
+        }
+    }
+    public class Coords
+    {
+        public float Latitude;
+        public float Longitude;
+        public Coords(float lat, float lon)
+        {
+            Latitude = lat;
+            Longitude = lon;
+        }
+        public void PrintInfo()
+        {
+            Console.WriteLine("Coordinates: " + Latitude.ToString() + ", " + Longitude.ToString());
+        }
+    }
+}
