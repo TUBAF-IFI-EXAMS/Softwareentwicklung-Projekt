@@ -1,9 +1,8 @@
 # Softwareentwicklung-Projekt
 
-you need the folloing packages to run this program: <br>
+You must run the following command to install the project's dependencies:
 ```
-dotnet add package Newtonsoft.Json
-dotnet add package System.Drawing.Common --version 5.0.2
+dotnet restore
 ```
 
 Image files need to be in the "s_img" folder and need to be named in the following way:
