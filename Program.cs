@@ -21,6 +21,7 @@ namespace wheatherproject
         static async Task Main(string[] args)
         {
             ReadSave(SavePath);
+
             Console.WriteLine("Image Name:");
             var ImPath = Console.ReadLine();
             Console.WriteLine("Image Time (Hour only [miltary time]):");
@@ -34,14 +35,16 @@ namespace wheatherproject
 
             var Image = new SouImg(ImPath, ImHour, ImDate, ImLat, ImLon);
             
-
             AnalyzeWeather(Image);
             await new Program().Compare(Image);
+
             Image.PrintInfo();
             Console.WriteLine("Tries: " + Tries.ToString() + " Successes: " + Successes.ToString());
             SuccessRate = ((float)Successes/Tries)*100;
             Console.WriteLine("Success Rate over Time: "+ SuccessRate.ToString() + "%");
+
             Console.WriteLine("BlueThresh: " + BlueThresh.ToString() + ", DGrayThresh= " + DGrayThresh.ToString());
+            
             SaveSave(SavePath);
         }
         static void AnalyzeWeather(SouImg img)
@@ -53,7 +56,6 @@ namespace wheatherproject
                 for (int j = 0; j < img.ImgSize-1; j++) 
                 {
                     var Col = objBitmap.GetPixel(j, i);
-                    //Console.WriteLine(Col.B);
                     var CDS = (Col.R + Col.B + Col.G)/3;
                     if (Col.B > Col.G && Col.G*0.8 > Col.R && Col.R + Col.G + Col.B > 150)
                     {
@@ -72,14 +74,11 @@ namespace wheatherproject
                     }
                 }
             }
-            //Console.WriteLine((float)img.BlueCount/(img.ImgSize*img.ImgSize));
-            //Console.WriteLine((float)img.WhiteCount/(img.ImgSize*img.ImgSize));
-            //Console.WriteLine((float)img.GrayCount/(img.ImgSize*img.ImgSize));
-            if ((float)img.BlueCount/(img.ImgSize*img.ImgSize) > BlueThresh) //BlueCheck
+            if ((float)img.BlueCount/(img.ImgSize*img.ImgSize) > BlueThresh)
             {
                 img.PredWeather = "clear";
             }
-            else if((float)img.GrayCount/(img.ImgSize*img.ImgSize) > DGrayThresh) //GrayCheck
+            else if((float)img.GrayCount/(img.ImgSize*img.ImgSize) > DGrayThresh)
             {
                 img.PredWeather = "rainy";
             }
@@ -95,8 +94,6 @@ namespace wheatherproject
                          "&dt=" + ((DateTimeOffset)new DateTime(Image.DateandTime.Year, Image.DateandTime.Month, Image.DateandTime.Day, Image.DateandTime.Hour, 0, 0)).ToUnixTimeSeconds().ToString() 
                          + "&appid=" + ApiKey;
             string response = await client.GetStringAsync(url);
-            
-            //Console.WriteLine(response);
 
             wheaRes OnWhea = JsonConvert.DeserializeObject<wheaRes>(response);
 

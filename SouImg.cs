@@ -14,7 +14,7 @@ namespace wheatherproject
         public string PredWeather;
         public string RealWeather;
         public bool Success;
-        public SouImg(string imPath, string imHour, string imDate, string imLat, string imLon)//, string DateTime, float tlat, float tlon) // 22_22-07-2021_50.93-13.34
+        public SouImg(string imPath, string imHour, string imDate, string imLat, string imLon)
         {
             if (imPath != null && imPath.Length != 0)
             {
