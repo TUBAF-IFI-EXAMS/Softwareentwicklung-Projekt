@@ -15,22 +15,33 @@ namespace wheatherproject
         public static int Tries;
         public static int Successes;
         public static float SuccessRate;
+        public static float BlueThresh;
+        public static float DGrayThresh;
         public static string SavePath = "Saves/Data.txt";
         static async Task Main(string[] args)
         {
             ReadSave(SavePath);
-
             Console.WriteLine("Image Name:");
-            var line = Console.ReadLine();
-            var Image = new SouImg(line);
+            var ImPath = Console.ReadLine();
+            Console.WriteLine("Image Time (Hour only [miltary time]):");
+            var ImHour = Console.ReadLine();
+            Console.WriteLine("Image Date (Day.Month.Year):");
+            var ImDate = Console.ReadLine();
+            Console.WriteLine("Image Latitude (2 decimals):");
+            var ImLat = Console.ReadLine();
+            Console.WriteLine("Image Longitude (2 decimals):");
+            var ImLon = Console.ReadLine();
+
+            var Image = new SouImg(ImPath, ImHour, ImDate, ImLat, ImLon);
             
+
             AnalyzeWeather(Image);
             await new Program().Compare(Image);
             Image.PrintInfo();
             Console.WriteLine("Tries: " + Tries.ToString() + " Successes: " + Successes.ToString());
             SuccessRate = ((float)Successes/Tries)*100;
             Console.WriteLine("Success Rate over Time: "+ SuccessRate.ToString() + "%");
-
+            Console.WriteLine("BlueThresh: " + BlueThresh.ToString() + ", DGrayThresh= " + DGrayThresh.ToString());
             SaveSave(SavePath);
         }
         static void AnalyzeWeather(SouImg img)
@@ -64,11 +75,11 @@ namespace wheatherproject
             //Console.WriteLine((float)img.BlueCount/(img.ImgSize*img.ImgSize));
             //Console.WriteLine((float)img.WhiteCount/(img.ImgSize*img.ImgSize));
             //Console.WriteLine((float)img.GrayCount/(img.ImgSize*img.ImgSize));
-            if ((float)img.BlueCount/(img.ImgSize*img.ImgSize) > 0.6f)
+            if ((float)img.BlueCount/(img.ImgSize*img.ImgSize) > BlueThresh) //BlueCheck
             {
                 img.PredWeather = "clear";
             }
-            else if((float)img.GrayCount/(img.ImgSize*img.ImgSize) > 0.2f)
+            else if((float)img.GrayCount/(img.ImgSize*img.ImgSize) > DGrayThresh) //GrayCheck
             {
                 img.PredWeather = "rainy";
             }
@@ -119,9 +130,31 @@ namespace wheatherproject
                 Tries++;
                 Successes++;
             }
-            else{Image.Success = false; Tries++;}
-            
-            //Console.WriteLine(url);
+            else
+            {
+                Image.Success = false;
+                Tries++;
+                if (Image.PredWeather == "clear")
+                {
+                    BlueThresh += 0.01f;
+                }
+                else if (Image.PredWeather == "overcast")
+                {
+                    if(Image.RealWeather == "clear")
+                    {
+                        BlueThresh -= 0.01f;
+                    }
+                    else{DGrayThresh -= 0.01f;}
+                }
+                else if (Image.PredWeather == "rain")
+                {
+                    if(Image.RealWeather == "clear")
+                    {
+                        BlueThresh -= 0.01f;
+                    }
+                    else{DGrayThresh += 0.01f;}
+                }
+            }
         }
         private static void ReadSave(string Path)
         {
@@ -135,14 +168,28 @@ namespace wheatherproject
                 {
                     Tries = Int32.Parse(line);
                 }
-                else{Tries = 0; Console.WriteLine("init Save 1/2");}
+                else{Tries = 0; Console.WriteLine("init Save 1/4");}
 
                 line = sr.ReadLine();
                 if (line != null)
                 {
                     Successes = Int32.Parse(line);
                 }
-                else{Successes = 0; Console.WriteLine("init Save 2/2");}
+                else{Successes = 0; Console.WriteLine("init Save 2/4");}
+                
+                line = sr.ReadLine();
+                if (line != null)
+                {
+                    BlueThresh = float.Parse(line);
+                }
+                else{BlueThresh = 0.6f; Console.WriteLine("init Save 3/4");}
+
+                line = sr.ReadLine();
+                if (line != null)
+                {
+                    DGrayThresh = float.Parse(line);
+                }
+                else{DGrayThresh = 0.2f; Console.WriteLine("init Save 4/4");}
                 
                 sr.Close();
             }
@@ -158,11 +205,41 @@ namespace wheatherproject
                 StreamWriter sw = new StreamWriter(Path);
                 sw.WriteLine(Tries.ToString());
                 sw.WriteLine(Successes.ToString());
+                sw.WriteLine(BlueThresh.ToString());
+                sw.WriteLine(DGrayThresh.ToString());
                 sw.Close();
             }
             catch(Exception e)
             {
                 Console.WriteLine("Exception: " + e.Message);
+            }
+        }
+        public static int ParseanInt(string value)
+        {
+            try
+            {
+                int number = Int32.Parse(value);
+                return number;
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Unable to convert '{0}' to int.", value);
+                System.Environment.Exit(1);
+                return 0;
+            }
+        }
+        public static float ParseaFloat(string value)
+        {
+            try
+            {
+                float number = float.Parse(value);
+                return number;
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Unable to convert '{0}' to float.", value);
+                System.Environment.Exit(1);
+                return 0;
             }
         }
     }
