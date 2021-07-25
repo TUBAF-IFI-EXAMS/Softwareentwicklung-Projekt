@@ -1,21 +1,26 @@
-# Softwareentwicklung-Projekt
+# Sky.NET
+Softwareentwicklung-Projekt
 
 You must run the following command to install the project's dependencies:
 ```
 dotnet restore
 ```
 
-Image files need to be in the "s_img" folder and need to be named in the following way:
+the imags have to only include sky.
 
-22_22-07-2021_50-93_13-34.jpg
+Image files need to be in the "s_img" folder.
 
-Hour_Day-Month-Year_Latitude_Longitude
+You also need the following data for your image:
 
-This data describes when and where the picture was taken.
-Latitude and Longitude are to be named with two decimal places. The dezimal-dot is to be replaced with an hyphen.
+>the hour closest to when it was taken (in military time and german timezone)
+
+>the date the image was taken (example: 25.07.2021)
+
+>the coordinates where the picture was taken (example: Latitude= 46.21, Longitude= 32.15)
+
 
 The Programm only works with dates from the last 5 day because that is the limitation of the used API
 
 this is the output that the programm currently gives you after inputting an image: <br>
 
-![programm output](https://cdn.discordapp.com/attachments/481454988002852897/867903471995191336/unknown.png)
+![programm output](https://cdn.discordapp.com/attachments/864972607626805279/868961078309179412/unknown.png)
