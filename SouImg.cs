@@ -43,7 +43,7 @@ namespace wheatherproject
                                     float.Parse(Path.Substring(20, 2) + "," + Path.Substring(23, 2)));
             //Coordinate = new Coords(float.Parse(Char.ToString(Path[14]) + Char.ToString(Path[15]) + "." + Char.ToString(Path[17]) + Char.ToString(Path[18])),
             //                        float.Parse(Char.ToString(Path[20]) + Char.ToString(Path[21]) + "." + Char.ToString(Path[23]) + Char.ToString(Path[24])));
-            // das , war ein . in 94 wird aber ein , erwartet.
+            // das , war ein . es wird aber ein , erwartet, sonst liefert float.Parse nur Integers zurück
             
         }
 
