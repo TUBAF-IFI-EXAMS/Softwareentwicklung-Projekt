@@ -164,28 +164,28 @@ namespace wheatherproject
                 StreamReader sr = new StreamReader(Path);
                 
                 line = sr.ReadLine();
-                if (line != null)
+                if (line != null && line != "")
                 {
                     Tries = Int32.Parse(line);
                 }
                 else{Tries = 0; Console.WriteLine("init Save 1/4");}
 
                 line = sr.ReadLine();
-                if (line != null)
+                if (line != null && line != "")
                 {
                     Successes = Int32.Parse(line);
                 }
                 else{Successes = 0; Console.WriteLine("init Save 2/4");}
                 
                 line = sr.ReadLine();
-                if (line != null)
+                if (line != null && line != "")
                 {
                     BlueThresh = float.Parse(line);
                 }
                 else{BlueThresh = 0.6f; Console.WriteLine("init Save 3/4");}
 
                 line = sr.ReadLine();
-                if (line != null)
+                if (line != null && line != "")
                 {
                     DGrayThresh = float.Parse(line);
                 }
