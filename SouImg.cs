@@ -16,24 +16,34 @@ namespace wheatherproject
         public bool Success;
         public SouImg(string Path)//, string DateTime, float tlat, float tlon) // 22_22-07-2021_50.93-13.34
         {
+            if (Path == null || Path.Length == 0)
+            {
+                Path = "22_22-07-2021_50-93_13-34.jpg";
+            }
             ImgPath = "s_img/" + Path;
             ImgSize = 128;
             BlueCount = 0;
             WhiteCount = 0;
             GrayCount = 0;
-            if (Int32.Parse(Char.ToString(Path[0]) + Char.ToString(Path[1])) != 0)
+            if (Int32.Parse(Path.Substring(0, 2)) /*Char.ToString(Path[0]) + Char.ToString(Path[1]))*/ != 0)
             {
-                DateandTime = new DaTi(Int32.Parse(Char.ToString(Path[9]) + Char.ToString(Path[10]) + Char.ToString(Path[11]) + Char.ToString(Path[12])),
-                0 + Int32.Parse(Char.ToString(Path[6]) + Char.ToString(Path[7])), 0 + Int32.Parse(Char.ToString(Path[3]) + Char.ToString(Path[4])),
-                Int32.Parse(Char.ToString(Path[0]) + Char.ToString(Path[1]))-1);
+
+                DateandTime = new DaTi(Int32.Parse(Path.Substring(9, 4)), Int32.Parse(Path.Substring(6, 2)), Int32.Parse(Path.Substring(3, 2)), Int32.Parse(Path.Substring(0, 2))-1);
+                //DateandTime = new DaTi(Int32.Parse(Char.ToString(Path[9]) + Char.ToString(Path[10]) + Char.ToString(Path[11]) + Char.ToString(Path[12])),
+                //0 + Int32.Parse(Char.ToString(Path[6]) + Char.ToString(Path[7])), 0 + Int32.Parse(Char.ToString(Path[3]) + Char.ToString(Path[4])),
+                //Int32.Parse(Char.ToString(Path[0]) + Char.ToString(Path[1]))-1);
             }
             else
             {
-                DateandTime = new DaTi(Int32.Parse(Char.ToString(Path[9]) + Char.ToString(Path[10]) + Char.ToString(Path[11]) + Char.ToString(Path[12])),
-                0 + Int32.Parse(Char.ToString(Path[6]) + Char.ToString(Path[7])), 0 + Int32.Parse(Char.ToString(Path[3]) + Char.ToString(Path[4])), 23);
+                DateandTime = new DaTi(Int32.Parse(Path.Substring(9, 4)), Int32.Parse(Path.Substring(6, 2)), Int32.Parse(Path.Substring(3, 2)), 23);
+                //DateandTime = new DaTi(Int32.Parse(Char.ToString(Path[9]) + Char.ToString(Path[10]) + Char.ToString(Path[11]) + Char.ToString(Path[12])),
+                //0 + Int32.Parse(Char.ToString(Path[6]) + Char.ToString(Path[7])), 0 + Int32.Parse(Char.ToString(Path[3]) + Char.ToString(Path[4])), 23);
             }
-            Coordinate = new Coords(float.Parse(Char.ToString(Path[14]) + Char.ToString(Path[15]) + "." + Char.ToString(Path[17]) + Char.ToString(Path[18])),
-                                    float.Parse(Char.ToString(Path[20]) + Char.ToString(Path[21]) + "." + Char.ToString(Path[23]) + Char.ToString(Path[24])));
+            Coordinate = new Coords(float.Parse(Path.Substring(14, 2) + "," + Path.Substring(17, 2)),
+                                    float.Parse(Path.Substring(20, 2) + "," + Path.Substring(23, 2)));
+            //Coordinate = new Coords(float.Parse(Char.ToString(Path[14]) + Char.ToString(Path[15]) + "." + Char.ToString(Path[17]) + Char.ToString(Path[18])),
+            //                        float.Parse(Char.ToString(Path[20]) + Char.ToString(Path[21]) + "." + Char.ToString(Path[23]) + Char.ToString(Path[24])));
+            // das , war ein . in 94 wird aber ein , erwartet.
             
         }
 
