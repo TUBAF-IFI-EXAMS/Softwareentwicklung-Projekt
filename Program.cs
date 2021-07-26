@@ -98,11 +98,11 @@ namespace weatherproject
             }
             
         }
-        private async Task Compare(SouImg Image)
+        private async Task Compare(SouImg img)
         {
             //constructing the url for the api call whith the input data from the image object
-            string url = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=" + Image.Coordinate.Latitude.ToString() + "&lon=" + Image.Coordinate.Longitude.ToString() +
-                         "&dt=" + ((DateTimeOffset)new DateTime(Image.DateandTime.Year, Image.DateandTime.Month, Image.DateandTime.Day, Image.DateandTime.Hour, 0, 0)).ToUnixTimeSeconds().ToString() 
+            string url = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=" + img.Coordinate.Latitude.ToString() + "&lon=" + img.Coordinate.Longitude.ToString() +
+                         "&dt=" + ((DateTimeOffset)new DateTime(img.DateandTime.Year, img.DateandTime.Month, img.DateandTime.Day, img.DateandTime.Hour, 0, 0)).ToUnixTimeSeconds().ToString() 
                          + "&appid=" + ApiKey;
             //getting a big string from the api
             string response = await client.GetStringAsync(url);
@@ -112,56 +112,56 @@ namespace weatherproject
             //checking the status of the weather with help of the weather id from the api response
             if(OnWhea.current.weather[0].id < 300)
             {
-                Image.RealWeather = "rainy";
+                img.RealWeather = "rainy";
             }
             else if(OnWhea.current.weather[0].id < 502)
             {
-                Image.RealWeather = "overcast";
+                img.RealWeather = "overcast";
             }
             else if(OnWhea.current.weather[0].id < 600)
             {
-                Image.RealWeather = "rainy";
+                img.RealWeather = "rainy";
             }
             else if(OnWhea.current.weather[0].id < 800)
             {
-                Image.RealWeather = "overcast";
+                img.RealWeather = "overcast";
             }
             else if(OnWhea.current.weather[0].id < 803)
             {
-                Image.RealWeather = "clear";
+                img.RealWeather = "clear";
             }
             else if(OnWhea.current.weather[0].id < 805)
             {
-                Image.RealWeather = "overcast";
+                img.RealWeather = "overcast";
             }
             //checking if the predicted weather is the same as the one the api said
-            if(Image.PredWeather == Image.RealWeather)
+            if(img.PredWeather == img.RealWeather)
             {
-                Image.Success = true; // the guess is deemed successful
+                img.Success = true; // the guess is deemed successful
                 Tries++;    //the number of total tries increases by 1
                 Successes++; // the number of successfull guesses increases by 1
             }
             else // == guess is false
             {
-                Image.Success = false; // the guess is deemed unsuccessful
+                img.Success = false; // the guess is deemed unsuccessful
                 Tries++; //the number of total tries increases by 1
 
                 //Programm changes internal Threshholds by +-1% to hopefully improve further guesses
-                if (Image.PredWeather == "clear")
+                if (img.PredWeather == "clear")
                 {
                     BlueThresh += 0.01f;
                 }
-                else if (Image.PredWeather == "overcast")
+                else if (img.PredWeather == "overcast")
                 {
-                    if(Image.RealWeather == "clear")
+                    if(img.RealWeather == "clear")
                     {
                         BlueThresh -= 0.01f;
                     }
                     else{DGrayThresh -= 0.01f;}
                 }
-                else if (Image.PredWeather == "rain")
+                else if (img.PredWeather == "rain")
                 {
-                    if(Image.RealWeather == "clear")
+                    if(img.RealWeather == "clear")
                     {
                         BlueThresh -= 0.01f;
                     }
