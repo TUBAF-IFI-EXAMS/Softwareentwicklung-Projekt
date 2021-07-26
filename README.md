@@ -23,4 +23,4 @@ The Programm only works with dates from the last 5 day because that is the limit
 
 this is the output that the programm currently gives you after inputting an image: <br>
 
-![programm output](https://cdn.discordapp.com/attachments/481454988002852897/869343175301537792/unknown.png)
+![programm output](https://cdn.discordapp.com/attachments/481454988002852897/869349229645164654/unknown.png)
