@@ -40,13 +40,16 @@ namespace weatherproject
             
             AnalyzeWeather(Image);  //Sends the Image object into an function which guesses its weather
             await new Program().Compare(Image); //Compares the results with real world data from the api
-
-            Image.PrintInfo(); //Prints out all data of the image Object including results from the guess and the comparison
-            Console.WriteLine("Tries: " + Tries.ToString() + " Successes: " + Successes.ToString()); //prints out the number of time the programm guessed an the number of times it was right
             SuccessRate = ((float)Successes/Tries)*100;     //calculating the success rate
-            Console.WriteLine("Success Rate over Time: "+ SuccessRate.ToString() + "%");    //prints out the success rate of the progamm
 
-            Console.WriteLine("BlueThresh: " + BlueThresh.ToString() + ", DGrayThresh= " + DGrayThresh.ToString());     //prints out the current values of the threshholds
+            if(args.Length != 0 && args[0] == "alldata") //checks if extra data shold be outputted
+            {
+                Image.PrintInfo(); //Prints out all data of the image Object including results from the guess and the comparison
+            }
+            else
+            {
+                Image.PrintOutput(); //Prints out important data of the image Object including results from the guess and the comparison
+            }
 
             SaveSave(SavePath); // stores the new number of tries and successes and the potentially new values of the threshholds in the .txt
         }

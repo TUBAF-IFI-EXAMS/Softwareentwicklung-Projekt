@@ -49,7 +49,7 @@ namespace weatherproject
             Console.WriteLine("Image size: " + ImgSize.ToString() + "px * " + ImgSize.ToString() + "px");
             Console.WriteLine("Blue Pixel %: " + (((float)BlueCount/(ImgSize*ImgSize))*100f).ToString() );
             Console.WriteLine("White Pixel %: " + (((float)WhiteCount/(ImgSize*ImgSize))*100f).ToString() );
-            Console.WriteLine("Gray Pixel %: " + (((float)GrayCount/(ImgSize*ImgSize))*100f).ToString() );
+            Console.WriteLine("Dark Gray Pixel %: " + (((float)GrayCount/(ImgSize*ImgSize))*100f).ToString() );
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Predicted: " + PredWeather.ToString());
             Console.WriteLine("Actual: " + RealWeather.ToString());
@@ -57,6 +57,20 @@ namespace weatherproject
             Console.WriteLine("Success: " + Success.ToString());
             DateandTime.PrintInfo();
             Coordinate.PrintInfo();
+            Console.WriteLine("Tries: " + Program.Tries.ToString() + " Successes: " + Program.Successes.ToString()); //prints out the number of time the programm guessed an the number of times it was right
+            Console.WriteLine("Success Rate over Time: "+ Program.SuccessRate.ToString() + "%");    //prints out the success rate of the progamm
+            Console.WriteLine("BlueThresh: " + Program.BlueThresh.ToString() + ", DGrayThresh= " + Program.DGrayThresh.ToString());     //prints out the current values of the threshholds
+        }
+        public void PrintOutput()
+        {
+            Console.WriteLine("Blue Pixel %: " + (((float)BlueCount/(ImgSize*ImgSize))*100f).ToString() );
+            Console.WriteLine("White Pixel %: " + (((float)WhiteCount/(ImgSize*ImgSize))*100f).ToString() );
+            Console.WriteLine("Dark Gray Pixel %: " + (((float)GrayCount/(ImgSize*ImgSize))*100f).ToString() );
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("Predicted: " + PredWeather.ToString());
+            Console.WriteLine("Actual: " + RealWeather.ToString());
+            Console.ResetColor();
+            Console.WriteLine("Success Rate over Time: "+ Program.SuccessRate.ToString() + "%");    //prints out the success rate of the progamm
         }
     }
     public class DaTi  //stores a given date and time
