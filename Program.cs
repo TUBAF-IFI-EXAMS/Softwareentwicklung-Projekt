@@ -34,6 +34,9 @@ namespace weatherproject
             var ImLat = Console.ReadLine();
             Console.WriteLine("Image Longitude (2 decimals):");
             var ImLon = Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("------------------------------------------");
+            Console.ResetColor();
 
             //creating an Image object with the given values
             var Image = new SouImg(ImPath, ImHour, ImDate, ImLat, ImLon);
