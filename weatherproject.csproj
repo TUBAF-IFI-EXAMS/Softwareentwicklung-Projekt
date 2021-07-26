@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>wheather_project</RootNamespace>
+    <RootNamespace>weatherproject</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

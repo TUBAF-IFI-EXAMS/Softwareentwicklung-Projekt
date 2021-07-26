@@ -1,6 +1,7 @@
-namespace wheatherproject
+namespace weatherproject
 {
-    public class wheaRes
+    //this is a replica of the class system of the api response and used for the Deserialisation of it
+    public class weaRes
     {
         public float lat{get;set;}
         public float lon{get;set;}

@@ -1,42 +1,48 @@
 using System;
 
-namespace wheatherproject
+namespace weatherproject
 {
     public class SouImg
     {
-        public string ImgPath;
-        public int ImgSize;
-        public DaTi DateandTime;
-        public Coords Coordinate;
-        public int BlueCount;
-        public int WhiteCount;
-        public int GrayCount;
-        public string PredWeather;
-        public string RealWeather;
-        public bool Success;
-        public SouImg(string Path)//, string DateTime, float tlat, float tlon) // 22_22-07-2021_50.93-13.34
+        public string ImgPath; //the path the image is stored at
+        public int ImgSize; //the size the image is analized at // default value 128x128px
+        public DaTi DateandTime; //stores the date and time the image was taken
+        public Coords Coordinate; //stores the location the image was taken
+        public int BlueCount; //the amount of pixels which are deemed to be blue
+        public int WhiteCount;// the amount of pixels which are deemed to be white
+        public int GrayCount;// the amount of pixels which are deemed to be dark gray
+        public string PredWeather; // the predicted weahter in the image
+        public string RealWeather; //the weather from the api
+        public bool Success; //stores if the guess was right or not
+        public SouImg(string imPath, string imHour, string imDate, string imLat, string imLon)
         {
-            ImgPath = "s_img/" + Path;
+            if (imPath != null && imPath.Length != 0) //checks that the image path isnt empty
+            {
+                ImgPath = "s_img/" + imPath; //sets the image path
+            }
+            else
+            {
+                //tells you that u didnt write anything and closes the programm
+                Console.WriteLine("you didnt write the name of an image");
+                System.Environment.Exit(1);
+            }
+            //setting size & the count variables to their default value
             ImgSize = 128;
             BlueCount = 0;
             WhiteCount = 0;
             GrayCount = 0;
-            if (Int32.Parse(Char.ToString(Path[0]) + Char.ToString(Path[1])) != 0)
+
+            if (Program.ParseanInt(imHour) == 0) // checks if the hour is 0
             {
-                DateandTime = new DaTi(Int32.Parse(Char.ToString(Path[9]) + Char.ToString(Path[10]) + Char.ToString(Path[11]) + Char.ToString(Path[12])),
-                0 + Int32.Parse(Char.ToString(Path[6]) + Char.ToString(Path[7])), 0 + Int32.Parse(Char.ToString(Path[3]) + Char.ToString(Path[4])),
-                Int32.Parse(Char.ToString(Path[0]) + Char.ToString(Path[1]))-1);
+                imHour = "24"; //hour gets set to 24
             }
-            else
-            {
-                DateandTime = new DaTi(Int32.Parse(Char.ToString(Path[9]) + Char.ToString(Path[10]) + Char.ToString(Path[11]) + Char.ToString(Path[12])),
-                0 + Int32.Parse(Char.ToString(Path[6]) + Char.ToString(Path[7])), 0 + Int32.Parse(Char.ToString(Path[3]) + Char.ToString(Path[4])), 23);
-            }
-            Coordinate = new Coords(float.Parse(Char.ToString(Path[14]) + Char.ToString(Path[15]) + "." + Char.ToString(Path[17]) + Char.ToString(Path[18])),
-                                    float.Parse(Char.ToString(Path[20]) + Char.ToString(Path[21]) + "." + Char.ToString(Path[23]) + Char.ToString(Path[24])));
-            
+            //sets the date and time from this format example hour: 22 ,date: 25.07.2021 // hour is -= 1 to get the right timezone
+            DateandTime = new DaTi(Program.ParseanInt(imDate.Substring(6, 4)), Program.ParseanInt(imDate.Substring(3, 2)), Program.ParseanInt(imDate.Substring(0, 2)), Program.ParseanInt(imHour)-1);
+            //sets the location from the given coordinates
+            Coordinate = new Coords(Program.ParseaFloat(imLat), Program.ParseaFloat(imLon));
         }
 
+        //prints out all values which are store in this class
         public void PrintInfo()
         {
             Console.WriteLine("Path: " + ImgPath.ToString());
@@ -51,7 +57,7 @@ namespace wheatherproject
             Coordinate.PrintInfo();
         }
     }
-    public class DaTi
+    public class DaTi  //stores a given date and time
     {
         public int Year;
         public int Month;
@@ -65,12 +71,14 @@ namespace wheatherproject
             Day = da;
             Hour = ho;
         }
+
+        //prints out all values which are store in this class
         public void PrintInfo()
         {
             Console.WriteLine("Time and Date: " + (Hour+1).ToString()+ ":00 " + Day.ToString() + "." + Month.ToString() + "." + Year.ToString());
         }
     }
-    public class Coords
+    public class Coords   //stores a given location in form of coordinates
     {
         public float Latitude;
         public float Longitude;
@@ -79,6 +87,8 @@ namespace wheatherproject
             Latitude = lat;
             Longitude = lon;
         }
+
+        //prints out all values which are store in this class
         public void PrintInfo()
         {
             Console.WriteLine("Coordinates: " + Latitude.ToString() + ", " + Longitude.ToString());
