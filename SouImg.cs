@@ -50,8 +50,10 @@ namespace weatherproject
             Console.WriteLine("Blue Pixel %: " + (((float)BlueCount/(ImgSize*ImgSize))*100f).ToString() );
             Console.WriteLine("White Pixel %: " + (((float)WhiteCount/(ImgSize*ImgSize))*100f).ToString() );
             Console.WriteLine("Gray Pixel %: " + (((float)GrayCount/(ImgSize*ImgSize))*100f).ToString() );
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Predicted: " + PredWeather.ToString());
             Console.WriteLine("Actual: " + RealWeather.ToString());
+            Console.ResetColor();
             Console.WriteLine("Success: " + Success.ToString());
             DateandTime.PrintInfo();
             Coordinate.PrintInfo();

@@ -20,6 +20,7 @@ namespace weatherproject
         public static string SavePath = "Saves/Data.txt"; //the path to the textdocument which saves the values of: Tries, Successes, BlueThresh, DGrayThresh
         static async Task Main(string[] args)
         {
+            PrintName();
             ReadSave(SavePath);     //loads the saved values into the program
             
             //getting all the imput for the image (image Name, Time, Date, and Location)
@@ -254,6 +255,19 @@ namespace weatherproject
                 System.Environment.Exit(1);
                 return 0;
             }
+        }
+        public static void PrintName()
+        {   
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("   _____ _            _   _ ______ _______ ");
+            Console.WriteLine("  / ____| |          | \\ | |  ____|__   __|");
+            Console.WriteLine(" | (___ | | ___   _  |  \\| | |__     | |   ");
+            Console.WriteLine("  \\___ \\| |/ / | | | | . ` |  __|    | |   ");
+            Console.WriteLine("  ____) |   <| |_| |_| |\\  | |____   | |   ");
+            Console.WriteLine(" |_____/|_|\\_\\\\__, (_)_| \\_|______|  |_|   ");
+            Console.WriteLine("               __/ |                       ");
+            Console.WriteLine("              |___/                        ");
+            Console.ResetColor();
         }
     }
 }
