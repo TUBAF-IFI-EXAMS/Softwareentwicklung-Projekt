@@ -107,7 +107,7 @@ namespace weatherproject
             //getting a big string from the api
             string response = await client.GetStringAsync(url);
             //Deserializing the big string with help of the wheaRes class which represents the structure of the api response
-            wheaRes OnWhea = JsonConvert.DeserializeObject<wheaRes>(response);
+            weaRes OnWhea = JsonConvert.DeserializeObject<weaRes>(response);
 
             //checking the status of the weather with help of the weather id from the api response
             if(OnWhea.current.weather[0].id < 300)
