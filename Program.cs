@@ -6,12 +6,12 @@ using Newtonsoft.Json;
 using System.IO;
 
 
-namespace wheatherproject
+namespace weatherproject
 {
     class Program
     {
         HttpClient client = new HttpClient();   //http client for the api call
-        public static string ApiKey = "09e41fcb0bfaccd128ff77e484531da3"; // the api key for the open wheater api
+        public static string ApiKey = "09e41fcb0bfaccd128ff77e484531da3"; // the api key for the open weather api
         public static int Tries;    //Number of times the program tried to guess the weather
         public static int Successes; //Number of times the program guessed right
         public static float SuccessRate; //the Rate at which the program is guessing right
@@ -37,7 +37,7 @@ namespace wheatherproject
             //creating an Image object with the given values
             var Image = new SouImg(ImPath, ImHour, ImDate, ImLat, ImLon);
             
-            AnalyzeWeather(Image);  //Sends the Image object into an function which guesses its wheather
+            AnalyzeWeather(Image);  //Sends the Image object into an function which guesses its weather
             await new Program().Compare(Image); //Compares the results with real world data from the api
 
             Image.PrintInfo(); //Prints out all data of the image Object including results from the guess and the comparison

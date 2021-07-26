@@ -1,6 +1,6 @@
 using System;
 
-namespace wheatherproject
+namespace weatherproject
 {
     public class SouImg
     {
