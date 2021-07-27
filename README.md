@@ -2,7 +2,7 @@
 ### Softwareentwicklung-Projekt
 
 example of the program being used: <br>
-![programm output](https://cdn.discordapp.com/attachments/481454988002852897/869358754699816980/unknown.png)
+![programm output](https://cdn.discordapp.com/attachments/481454988002852897/869558403914166292/unknown.png)
 
 ## description
 Sky.Net is an image processing program that can determine the weather from an image displaying the sky. <br>
