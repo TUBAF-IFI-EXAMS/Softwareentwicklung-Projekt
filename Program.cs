@@ -26,7 +26,7 @@ namespace weatherproject
             //getting all the imput for the image (image Name, Time, Date, and Location)
             Console.WriteLine("Image Name:");
             var ImPath = Console.ReadLine();
-            Console.WriteLine("Image Time (Hour only [miltary time]):");
+            Console.WriteLine("Image Time (Hour only [24h format]):");
             var ImHour = Console.ReadLine();
             Console.WriteLine("Image Date (Day.Month.Year):");
             var ImDate = Console.ReadLine();
