@@ -24,15 +24,15 @@ namespace weatherproject
             ReadSave(SavePath);     //loads the saved values into the program
             
             //getting all the imput for the image (image Name, Time, Date, and Location)
-            Console.WriteLine("Image Name:");
+            Console.WriteLine("Image Name (example: 'a.jpg'):");
             var ImPath = Console.ReadLine();
-            Console.WriteLine("Image Time (Hour only [24h format]):");
+            Console.WriteLine("Image Time (Hour only [24h format]) (example : '21' or '2'):");
             var ImHour = Console.ReadLine();
-            Console.WriteLine("Image Date (Day.Month.Year):");
+            Console.WriteLine("Image Date (Day.Month.Year) (example: '25.07.2021'):");
             var ImDate = Console.ReadLine();
-            Console.WriteLine("Image Latitude (2 decimals):");
+            Console.WriteLine("Image Latitude (2 decimals) (example: '46.21'):");
             var ImLat = Console.ReadLine();
-            Console.WriteLine("Image Longitude (2 decimals):");
+            Console.WriteLine("Image Longitude (2 decimals) (example: '32.15'):");
             var ImLon = Console.ReadLine();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("------------------------------------------");
